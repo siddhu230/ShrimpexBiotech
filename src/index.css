@@ -1,0 +1,182 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply font-sans antialiased;
+  }
+  
+  * {
+    @apply focus:outline-none;
+  }
+  
+  *:focus-visible {
+    @apply outline-2 outline-maroon-500 outline-offset-2;
+  }
+}
+
+@layer components {
+  /* Loading Screen */
+  .loading-screen {
+    @apply fixed inset-0 bg-gradient-to-br from-white to-gray-50 flex items-center justify-center z-50;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+
+  .loading-screen.hidden {
+    @apply opacity-0 invisible pointer-events-none;
+  }
+
+  .loading-spinner {
+    @apply w-12 h-12 border-3 border-gray-300 border-t-maroon-500 rounded-full;
+    animation: spin 1s linear infinite;
+  }
+
+  /* Navigation */
+  .nav-link {
+    @apply relative px-4 py-2 rounded-lg font-medium text-gray-700 transition-all duration-300;
+    position: relative;
+  }
+
+  .nav-link::before {
+    content: '';
+    @apply absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-maroon-500 to-maroon-600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(-50%);
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    @apply text-maroon-500 bg-maroon-50;
+  }
+
+  .nav-link:hover::before,
+  .nav-link.active::before {
+    @apply w-4/5;
+  }
+
+  /* Mobile Menu */
+  .hamburger-line {
+    @apply w-6 h-0.5 bg-gray-700 my-0.5 transition-all duration-300 rounded-sm;
+  }
+
+  .hamburger.active .hamburger-line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .hamburger.active .hamburger-line:nth-child(2) {
+    @apply opacity-0;
+  }
+
+  .hamburger.active .hamburger-line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* Cards */
+  .service-card {
+    @apply bg-white rounded-2xl p-6 border border-gray-200 hover:border-maroon-500 transition-all duration-300 hover:shadow-xl;
+    transform: perspective(1px) translateZ(0);
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px) scale(1.03);
+  }
+
+  .research-card,
+  .cert-card {
+    @apply bg-white rounded-2xl p-8 transition-all duration-300 hover:shadow-xl;
+  }
+
+  .research-card:hover,
+  .cert-card:hover {
+    transform: translateY(-5px) scale(1.02);
+  }
+
+  /* Hero Buttons */
+  .hero-btn {
+    @apply bg-maroon-500 hover:bg-maroon-600 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 relative overflow-hidden;
+  }
+
+  .hero-btn::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-full;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  .hero-btn:hover::before {
+    transform: translateX(100%);
+  }
+
+  /* Tab Buttons */
+  .tab-btn {
+    @apply px-8 py-3 rounded-lg font-semibold transition-all duration-300 relative;
+  }
+
+  .tab-btn.active {
+    @apply bg-maroon-500 text-white transform -translate-y-0.5 shadow-lg;
+  }
+
+  .tab-btn:not(.active) {
+    @apply bg-white text-gray-600 border border-gray-300 hover:border-maroon-500;
+  }
+
+  /* Form Controls */
+  .form-control {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-maroon-500 focus:ring-2 focus:ring-maroon-500 focus:ring-opacity-20 outline-none transition-all;
+  }
+
+  .form-control:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(128, 0, 0, 0.1);
+  }
+
+  /* Statistics */
+  .stat-number {
+    background: linear-gradient(135deg, #800000, #660000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    background: linear-gradient(135deg, #800000, #660000, #800000);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+  }
+
+  /* Scroll to Top */
+  .scroll-to-top {
+    @apply fixed bottom-8 right-8 bg-maroon-500 hover:bg-maroon-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 opacity-0 pointer-events-none;
+  }
+
+  .scroll-to-top.visible {
+    @apply opacity-100 pointer-events-auto;
+  }
+}
+
+@layer utilities {
+  .animate-counter {
+    animation: fadeInUp 0.8s ease;
+  }
+  
+  .parallax {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
